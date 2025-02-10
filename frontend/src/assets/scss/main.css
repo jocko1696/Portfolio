@@ -1069,6 +1069,20 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   padding-bottom: 20px;
 }
 
+@media (max-width: 878px) {
+  .footer-divider {
+    max-width: 500px !important;
+  }
+}
+@media (max-width: 576px) {
+  .footer-divider {
+    max-width: 400px !important;
+  }
+  .contact-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+}
 /*Import pages styles */
 #home {
   font-family: Lato, sans-serif;
