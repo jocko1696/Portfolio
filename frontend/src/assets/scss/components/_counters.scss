@@ -1,0 +1,61 @@
+.counter-container {
+  //position: absolute;
+  //left: 282px;
+  //bottom:-4px;
+  //position: absolute;
+  //bottom: 37px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  //padding: 2rem;
+  background: transparent;
+
+  .counter-card {
+    text-align: center;
+    padding: 1.5rem;
+    border-radius: 10px;
+    background: linear-gradient(45deg, rgba(243, 244, 246, 0.7), rgba(221, 223, 228, 0.7), rgba(196, 200, 207, 0.7), rgba(164, 169, 178, 0.7), rgba(134, 140, 152, 0.7), rgba(103, 110, 121, 0.7));
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    min-width: 150px;
+    transition: background 0.3s ease, transform 0.3s ease;
+
+
+    h2 {
+      font-size: 2rem;
+      color: white; // Changed to white for better contrast
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      font-size: 1rem;
+      color: $color-primary; // Changed to white for better contrast
+    }
+
+    &:hover {
+      transform: scale(1.1); // Slightly scale on hover
+      background: linear-gradient(45deg, rgba(164, 169, 178, 0.7), rgba(243, 244, 246, 0.7), rgba(221, 223, 228, 0.7), rgba(196, 200, 207, 0.7), rgba(134, 140, 152, 0.7), rgba(103, 110, 121, 0.7));
+    }
+  }
+
+  .divider {
+    width: 2px;
+    height: 60px;
+    background: #ddd;
+  }
+}
+
+@media (max-width: 576px) {
+  .counter-container{
+    flex-direction: column-reverse;
+
+    .counter-card{
+      padding: 2.5rem 5rem;
+    }
+  }
+  .counter-container .divider {
+    width: 109px;
+    height: 2px;
+    display: inline-block;
+  }
+}

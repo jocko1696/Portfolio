@@ -1,0 +1,62 @@
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  padding: 20px;
+}
+
+.card {
+  cursor:default;
+  flex: 1 1 calc(33.33% - 20px); // 3 cards per row, minus gap
+  //background: #fff;
+  border-radius: 16px;
+  //box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, rgba(243, 244, 246, 0.7), rgba(221, 223, 228, 0.7), rgba(196, 200, 207, 0.7), rgba(164, 169, 178, 0.7), rgba(134, 140, 152, 0.7), rgba(103, 110, 121, 0.7));
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  min-height: 220px; // Ensures equal height
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &:hover {
+    transform: scale(1.1);
+    background: linear-gradient(45deg, rgba(164, 169, 178, 0.7), rgba(243, 244, 246, 0.7), rgba(221, 223, 228, 0.7), rgba(196, 200, 207, 0.7), rgba(134, 140, 152, 0.7), rgba(103, 110, 121, 0.7));
+  }
+
+
+
+  .icon {
+    font-size: 40px;
+    color:$pink-500;
+    margin-bottom: 10px;
+  }
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  p {
+    font-size: 16px;
+    color: #666;
+    flex-grow: 1;
+  }
+}
+
+// Responsive Styles
+@media (max-width: 992px) {
+  .card {
+    flex: 1 1 calc(50% - 20px); // 2 cards per row
+  }
+}
+
+@media (max-width: 600px) {
+  .card {
+    flex: 1 1 100%; // 1 card per row
+  }
+}

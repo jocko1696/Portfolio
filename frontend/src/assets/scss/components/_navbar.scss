@@ -1,0 +1,199 @@
+
+/* Navbar Styles */
+.navbar {
+  background-color: $color-primary;
+  padding: 0px;
+  position: fixed;
+  width: 100%;
+  transition: transform 0.4s ease-in-out; // Smooth animation
+  z-index: 1000;
+
+  &.hidden {
+    transform: translateY(-100%); // Moves navbar out of view
+  }
+}
+
+.navbar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Logo Gradient Animation */
+.logo {
+  a {
+    font-size: 3rem;
+    font-weight: bold;
+    background-image: linear-gradient(45deg, $gradient-start, $gradient-mid, $gradient-end);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+    text-transform: uppercase;
+    background-size: 400% 400%; // Allows smooth animation
+    animation: gradientFlow 6s ease infinite; // Default animation
+
+    &:hover {
+      animation: gradientFlow 2s ease-in-out infinite; // Speed up on hover
+    }
+
+    &.active {
+      text-decoration: underline;
+      background-image: linear-gradient(45deg, $gradient-start, $gradient-end);
+
+    }
+  }
+}
+
+// Define the keyframes for the gradient animation
+@keyframes gradientFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Navbar Links */
+.navbar-links a {
+  color: $color-primary-light;
+  text-decoration: none;
+  font-size: 22px;
+  letter-spacing: 2px;
+  transition: all 0.3s ease;
+
+  &.active {
+    font-weight: bold;
+    color: $color-tertiary;
+  }
+
+  &:hover {
+    font-weight: bold;
+    color: $color-tertiary;
+    opacity: 0.8;
+  }
+}
+
+/* Hire Me Button */
+.hire-me a {
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+/* Mobile Styles */
+
+.hamburger-menu {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 40px;
+  height: 30px;
+  cursor: pointer;
+  position: relative;
+  z-index:100;
+
+  span {
+    display: block;
+    background-color: $color-secondary;
+    height: 3px;
+    width: 100%; // Top and bottom lines are longer
+    border-radius: 2px;
+    transition: all 0.4s ease-in-out;
+    margin:10px;
+  }
+
+  span:nth-child(2) {
+    width: 70%; // Middle line is shorter
+    align-self: center;
+  }
+
+  &.open {
+    span:nth-child(1) {
+      transform: translateY(13px) rotate(45deg);
+    }
+
+    span:nth-child(2) {
+      opacity: 0; // Hide middle line
+    }
+
+    span:nth-child(3) {
+      transform: translateY(-13px) rotate(-45deg);
+    }
+  }
+}
+
+
+.navbar-links {
+  display: flex;
+  gap: 40px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+
+  .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .navbar{
+    padding:10px;
+  }
+  .navbar-links {
+    display: none;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; // Ensure full screen height
+    background-color: rgba($color-primary, 0.95); // Slight transparency
+    justify-content: center;
+    align-items: center;
+    gap: 29px;
+    padding: 40px;
+    text-align: center;
+    transition: transform 0.4s ease-in-out;
+    transform: translateY(-100%);
+    overflow: hidden; // Prevent scrolling inside menu
+    z-index: 90; // Ensure menu stays on top
+  }
+
+  .navbar-links.open {
+    display: flex;
+    transform: translateY(0);
+  }
+
+  /* Prevent scrolling when menu is open */
+  body.menu-open {
+    overflow: hidden;
+    height: 100vh; // Ensure full screen without scroll
+    position: fixed; // Prevents background scroll
+    width: 100%;
+  }
+
+  .hamburger-menu {
+    display: block;
+    bottom: 9px;
+    left: -7px;
+  }
+
+  .hire-me {
+    display: block;
+    text-align: center;
+  }
+
+  .hire-me a {
+    font-size: 20px;
+  }
+}

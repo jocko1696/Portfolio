@@ -1,0 +1,25 @@
+#contact-me{
+  font-family: Lato, sans-serif;
+  background-color: $color-primary;
+  padding: 0 20px 200px 20px;
+
+  .center-container {
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      flex-direction: column;
+
+      .heading-title {
+        color: $pink-50;
+        font-size: 40px;
+      }
+
+      .heading-description {
+        font-size: 20px;
+        color: $color-secondary;
+        padding-bottom: 70px;
+      }
+    }
+  }
+}

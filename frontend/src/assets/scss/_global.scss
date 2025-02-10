@@ -1,0 +1,19 @@
+@import "resets";
+@import "./variables";
+
+#root{
+  width:100%;
+}
+
+.center-container{
+  max-width: 1260px;
+  margin:auto;
+}
+
+.white-divider{
+  height:255px;
+  width:100%;
+  color:$pink-50;
+}
+
+

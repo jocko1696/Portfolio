@@ -1,0 +1,26 @@
+
+/* Import variables first */
+@import './_variables';
+
+/* Import resets */
+@import './_resets';
+
+/* Import global styles */
+@import './_global';
+
+/*Import components styles */
+@import "./components/_navbar";
+@import "./components/_buttons";
+@import "./components/_counters";
+@import "components/_progress";
+@import "components/_cards";
+@import "components/_form";
+@import "components/_contact-info";
+@import "components/_footer";
+
+
+/*Import pages styles */
+@import "./pages/_index.scss";
+@import "./pages/_about-me.scss";
+@import "./pages/_services.scss";
+@import "./pages/_contact-me.scss";

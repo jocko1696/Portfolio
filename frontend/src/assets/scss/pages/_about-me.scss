@@ -1,0 +1,135 @@
+$image-border-size: 10px;
+$gradient-start: #f43f5e;
+$gradient-mid: #fb7185;
+$gradient-end: #fda4af;
+#about-me {
+  font-family: Lato, sans-serif;
+  background-color: $color-primary;
+  padding: 100px 20px 0px 20px;
+
+  .center-container {
+    .heading {
+      display: flex;
+      justify-content: space-between;
+      text-align: center;
+      flex-direction: column;
+
+      .heading-title {
+        color: $pink-50;
+        font-size: 40px;
+      }
+
+      .heading-description {
+        font-size: 20px;
+        color: $color-secondary;
+      }
+    }
+
+    .about-me-wrapper {
+      display: flex;
+      gap: 100px;
+      padding-top: 100px;
+
+      .image-container {
+        width: 100%;
+        max-width: 600px;
+        position: relative;
+        display: inline-block;
+
+        .styled-image {
+          width: 100%;
+          height: auto;
+          object-fit: cover;
+          position: relative;
+          z-index: 1;
+          left: 20px; // Move image slightly to the right
+          top: -20px;
+        }
+
+        .overlay {
+          width: 100%;
+          height: 100%;
+          position: absolute;
+          left: 20px;
+          top: -20px;
+          background: rgba(0, 0, 0, 0.3);
+          z-index: 2;
+        }
+
+        &::before {
+          content: "";
+          position: absolute;
+          top: 39px;
+          left: -10px;
+          right: -10px;
+          bottom: -6px;
+          border: 30px solid;
+          border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
+          /* border-bottom: none; */
+          z-index: 0;
+
+        }
+      }
+
+      .text-container {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+
+        p {
+          color: $color-primary-light;
+          font-size: 18px;
+          text-align: justify;
+          padding-bottom: 55px;
+        }
+
+        a {
+
+          color: $pink-50;
+          transition: all 0.3s ease-in-out;
+
+          &:hover {
+            opacity: 0.8;
+          }
+        }
+      }
+
+
+    }
+  }
+
+
+}
+
+@media(max-width: 1180px) {
+  #about-me {
+
+    .about-me-wrapper {
+      gap: 60px !important;
+    }
+  }
+}
+
+@media (max-width: 1180px) {
+  #about-me {
+    .about-me-wrapper {
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      .image-container {
+        width: 100% !important;
+      }
+
+      .text-container {
+        width: 100% !important;
+      }
+
+      .download-wrapper {
+        display: flex;
+        justify-content: center;
+      }
+    }
+  }
+}

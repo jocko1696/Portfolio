@@ -1,0 +1,98 @@
+
+.main-btn {
+  font-size: 18px;
+  font-weight: bold;
+  padding:0.5rem 2.375rem;
+  border: none;
+  border-radius: 8px;
+  text-transform: capitalize;
+  color: white; // Ensures text is visible
+  background-size: 300% 300%;
+  background-image: linear-gradient(45deg, $gradient-start, $gradient-mid, $gradient-end);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  outline: none;
+  animation: gradientAnimation 6s infinite linear;
+
+  &:hover {
+    animation: gradientAnimation 3s infinite linear;
+    transform: scale(1.05);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// Define the flowing gradient animation
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.scroll-to-top {
+  position: fixed;
+  //bottom: 20px;
+  //right: 20px;
+  //width: 45px;
+  //height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: white;
+  border: none;
+  //border-radius: 12px; // Less rounded corners
+  background-size: 300% 300%;
+  background-image: linear-gradient(45deg, $gradient-start, $gradient-mid, $gradient-end);
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  outline: none;
+  opacity: 0;
+  visibility: hidden;
+  animation: gradientAnimation 6s infinite linear;
+  right: 2.5rem;
+  bottom: 2.5rem;
+  border-radius: 50%;
+  width: 3.7rem;
+  height: 3.7rem;
+
+  &.visible {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &:hover {
+    animation: gradientAnimation 3s infinite linear;
+    transform: scale(1.08);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  }
+
+  &:focus {
+    outline: none; // Removes black border on click
+  }
+}
+
+// Gradient animation
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.contact-me{
+  &.main-btn{
+    color:$color-white;
+  }
+}
