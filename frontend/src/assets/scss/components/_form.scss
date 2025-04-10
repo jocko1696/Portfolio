@@ -1,9 +1,9 @@
 .form-container {
   display: grid;
-  gap: 1rem;
+  gap: 3rem;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: auto auto auto auto;
-  max-width: 800px;
+  max-width: 900px;
   margin: auto;
 
   .col {

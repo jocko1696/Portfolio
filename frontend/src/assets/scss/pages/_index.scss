@@ -13,8 +13,10 @@ $gradient-end: #fda4af;
   }
 
   .desktop-view{
-    position: absolute;
-    bottom: 122px;
+    //position: absolute;
+    //bottom: 122px;
+    position:relative;
+    top:247px;
     display: flex;
   }
   .center-container {

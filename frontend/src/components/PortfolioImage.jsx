@@ -18,7 +18,7 @@ const PortfolioImage = () => {
 
     return (
         <div className={`image-container section-cv ${isMobile ? 'mobile' : ''}`}>
-            <img alt="Styled" className="styled-image" src="../../public/JG-color.JPG"/>
+            <img alt="Styled" className="styled-image" src="../../public/images/JG-color.JPG"/>
             <div className="overlay"></div>
         </div>
     );

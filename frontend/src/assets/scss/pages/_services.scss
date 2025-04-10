@@ -2,4 +2,22 @@
   font-family: Lato, sans-serif;
   background-color: $color-primary;
   padding:200px 0px;
+
+  .heading {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    flex-direction: column;
+    padding-bottom:70px;
+
+    .heading-title {
+      color: $pink-200;
+      font-size: 40px;
+    }
+
+    .heading-description {
+      font-size: 20px;
+      color: $color-secondary;
+    }
+  }
 }
