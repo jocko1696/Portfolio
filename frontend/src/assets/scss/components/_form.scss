@@ -16,15 +16,15 @@
   }
 
   .error {
-    padding-top:5px;
+    padding-top: 5px;
     font-family: Lato, sans-serif;
     display: flex;
     gap: 4px;
     color: $pink-200;
   }
 
-  svg{
-    margin-top:1px;
+  svg {
+    margin-top: 1px;
   }
 
 
@@ -187,4 +187,12 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   font-family: Lato, sans-serif;
   font-size: 14px;
   letter-spacing: 1px;
+}
+
+.status-message {
+  padding-top: 5px;
+  font-family: Lato, sans-serif;
+  display: flex;
+  gap: 4px;
+  color: #fecdd3;
 }

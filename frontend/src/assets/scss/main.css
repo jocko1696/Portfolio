@@ -123,7 +123,8 @@ body {
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
 }
 
 /* Make images easier to work with */
@@ -312,7 +313,8 @@ body {
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
-  text-decoration-skip-ink: auto;
+  -webkit-text-decoration-skip: ink;
+          text-decoration-skip-ink: auto;
 }
 
 /* Make images easier to work with */
@@ -764,7 +766,8 @@ a {
   transform: rotate(0deg);
 }
 .skills-container .skill-progress-container image {
-  clip-path: circle(50% at 50% 50%);
+  -webkit-clip-path: circle(50% at 50% 50%);
+          clip-path: circle(50% at 50% 50%);
   z-index: 1;
 }
 .skills-container .skill-progress-container #gradient stop {
@@ -873,10 +876,14 @@ a {
   border-color: #f43f5e;
   -webkit-text-fill-color: #959595;
   -webkit-box-shadow: 0 0 0px 200px transparent inset;
+  -webkit-transition: background-color 5000s ease-in-out 0s;
   transition: background-color 5000s ease-in-out 0s;
   font-family: Lato, sans-serif;
   font-size: 14px;
   letter-spacing: 1px;
+}
+.form-container input::-moz-placeholder, .form-container textarea::-moz-placeholder {
+  color: rgba(255, 255, 255, 0.45) !important;
 }
 .form-container input::placeholder, .form-container textarea::placeholder {
   color: rgba(255, 255, 255, 0.45) !important;
@@ -949,6 +956,14 @@ a {
 }
 
 /* Placeholder styling */
+input::-moz-placeholder, textarea::-moz-placeholder {
+  font-family: Lato, sans-serif;
+  font-size: 14px;
+  letter-spacing: 1px;
+  opacity: 1;
+  -moz-transition: opacity 0.3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
 input::placeholder,
 textarea::placeholder {
   font-family: Lato, sans-serif;
@@ -959,6 +974,9 @@ textarea::placeholder {
 }
 
 /* Placeholder fade effect on focus */
+input:focus::-moz-placeholder, textarea:focus::-moz-placeholder {
+  opacity: 0.5;
+}
 input:focus::placeholder,
 textarea:focus::placeholder {
   opacity: 0.5;
@@ -991,6 +1009,14 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   font-family: Lato, sans-serif;
   font-size: 14px;
   letter-spacing: 1px;
+}
+
+.status-message {
+  padding-top: 5px;
+  font-family: Lato, sans-serif;
+  display: flex;
+  gap: 4px;
+  color: #fecdd3;
 }
 
 .contact-info {
@@ -1165,8 +1191,10 @@ textarea::-moz-placeholder { /* Firefox 19+ */
 #home .center-container .image-container .styled-image {
   width: 100%;
   height: auto;
-  object-fit: cover;
-  clip-path: circle(113% at 50% 0%);
+  -o-object-fit: cover;
+     object-fit: cover;
+  -webkit-clip-path: circle(113% at 50% 0%);
+          clip-path: circle(113% at 50% 0%);
   top: 102px;
   position: relative;
   z-index: 1;
@@ -1176,7 +1204,8 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   height: 100%;
   position: absolute;
   top: 102px;
-  clip-path: circle(113% at 50% 0%);
+  -webkit-clip-path: circle(113% at 50% 0%);
+          clip-path: circle(113% at 50% 0%);
   background: rgba(0, 0, 0, 0.3);
   z-index: 2;
 }
@@ -1188,9 +1217,11 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   right: -10px;
   bottom: -10px;
   border: 10px solid;
-  border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
+  -o-border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
+     border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
   border-bottom: none;
-  clip-path: circle(113% at 50% 0%);
+  -webkit-clip-path: circle(113% at 50% 0%);
+          clip-path: circle(113% at 50% 0%);
   z-index: 0;
 }
 #home .center-container .hire-me {
@@ -1263,7 +1294,8 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   }
   #home .image-container .overlay {
     top: 0 !important;
-    clip-path: circle(105% at 50% 0%) !important;
+    -webkit-clip-path: circle(105% at 50% 0%) !important;
+            clip-path: circle(105% at 50% 0%) !important;
   }
 }
 @media (max-height: 800px) {
@@ -1304,7 +1336,8 @@ textarea::-moz-placeholder { /* Firefox 19+ */
 #about-me .center-container .about-me-wrapper .image-container .styled-image {
   width: 100%;
   height: auto;
-  object-fit: cover;
+  -o-object-fit: cover;
+     object-fit: cover;
   position: relative;
   z-index: 1;
   left: 20px;
@@ -1327,7 +1360,8 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   right: -10px;
   bottom: -6px;
   border: 30px solid;
-  border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
+  -o-border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
+     border-image: linear-gradient(45deg, #f43f5e, #fb7185, #fda4af) 1;
   /* border-bottom: none; */
   z-index: 0;
 }
@@ -1398,6 +1432,4 @@ textarea::-moz-placeholder { /* Firefox 19+ */
   font-size: 20px;
   color: #959595;
   padding-bottom: 70px;
-}
-
-/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=main.css.map */
