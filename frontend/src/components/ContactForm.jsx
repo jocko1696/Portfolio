@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import validator from 'validator';
-import axios from "axios";
-import {useNavigate} from "react-router-dom";
+import axios from 'axios';
 
-const ContactForm = ({cartItems}) => {
+const ContactForm = ({}) => {
     const [formData, setFormData] = useState({
         email: '',
         phone: '',
@@ -13,13 +12,15 @@ const ContactForm = ({cartItems}) => {
         city: '',
         country: '',
         postalCode: '',
+        message: '',
     });
 
     const [errors, setErrors] = useState({});
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submissionStatus, setSubmissionStatus] = useState('');
 
     const handleChange = (e) => {
-        const {name, value} = e.target;
+        const { name, value } = e.target;
         setFormData((prevState) => ({
             ...prevState,
             [name]: value,
@@ -36,34 +37,42 @@ const ContactForm = ({cartItems}) => {
         if (!validator.isMobilePhone(formData.phone, 'any')) {
             formErrors.phone = 'Invalid phone number';
         }
-        // Shipping Info validation
+
         if (!formData.name) formErrors.name = 'Name is required';
-        if (!formData.lastName) formErrors.lastName = 'Last name is required';
         if (!formData.address) formErrors.address = 'Address is required';
-        if (!formData.city) formErrors.city = 'City is required';
-        if (!formData.country) formErrors.country = 'Country is required';
-        if (!formData.paymentMethod)
-            errors.paymentMethod = "Please select a payment method";
+        if (!formData.message) formErrors.message = 'Message is required';
 
         setErrors(formErrors);
         return Object.keys(formErrors).length === 0;
     };
 
-
     // Handle form submission
     const handleSubmit = async (e) => {
+
         e.preventDefault();
         setIsSubmitting(true);
+        setSubmissionStatus('');
 
         // Validate form before submitting
         if (!validate()) {
             setIsSubmitting(false);
-
+            return;
         }
 
+        const backendUrl ='http://localhost:5000';  // Default to port 5000 if not set
 
+        try {
+            // Send form data to the backend to send the email
+            const response = await axios.post(`${backendUrl}/send-email`, formData);
+            setSubmissionStatus('success');
+            setIsSubmitting(false);
+            alert(response.data.message); // Success message from backend
+        } catch (error) {
+            setSubmissionStatus('error');
+            setIsSubmitting(false);
+            alert('Failed to send message'); // Error message if email sending fails
+        }
     };
-
 
     return (
         <form onSubmit={handleSubmit} className="form-container " id="form">
@@ -77,21 +86,7 @@ const ContactForm = ({cartItems}) => {
                         placeholder="Name"
                         className=""
                     />
-                    {errors.name && (
-                        <p className="error">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10 13.125C9.8146 13.125 9.63335 13.18 9.47918 13.283C9.32501 13.386 9.20484 13.5324 9.13389 13.7037C9.06293 13.875 9.04436 14.0635 9.08054 14.2454C9.11671 14.4273 9.206 14.5943 9.33711 14.7254C9.46822 14.8565 9.63527 14.9458 9.81713 14.982C9.99898 15.0182 10.1875 14.9996 10.3588 14.9286C10.5301 14.8577 10.6765 14.7375 10.7795 14.5833C10.8825 14.4292 10.9375 14.2479 10.9375 14.0625C10.9375 13.8139 10.8388 13.5754 10.6629 13.3996C10.4871 13.2238 10.2487 13.125 10 13.125Z"
-                                    fill="#fecdd3"/>
-                                <path d="M10.625 5H9.37502V11.25H10.625V5Z" fill="#fecdd3"/>
-                                <path
-                                    d="M14.375 18.125H5.62502C5.51579 18.125 5.40846 18.0964 5.31373 18.042C5.21901 17.9876 5.14019 17.9093 5.08515 17.8149L0.710149 10.3149C0.654384 10.2193 0.625 10.1107 0.625 10C0.625 9.88933 0.654384 9.78065 0.710149 9.68506L5.08515 2.18506C5.14019 2.09071 5.21901 2.01243 5.31373 1.95802C5.40846 1.90362 5.51579 1.875 5.62502 1.875H14.375C14.4843 1.875 14.5916 1.90362 14.6863 1.95802C14.781 2.01243 14.8599 2.09071 14.9149 2.18506L19.2899 9.68506C19.3457 9.78065 19.375 9.88933 19.375 10C19.375 10.1107 19.3457 10.2193 19.2899 10.3149L14.9149 17.8149C14.8599 17.9093 14.781 17.9876 14.6863 18.042C14.5916 18.0964 14.4843 18.125 14.375 18.125ZM5.9839 16.875H14.0161L18.0265 10L14.0161 3.125H5.9839L1.97359 10L5.9839 16.875Z"
-                                    fill="#fecdd3"/>
-                            </svg>
-                            {errors.name}
-                        </p>
-                    )}
+                    {errors.name && <p className="error">{errors.name}</p>}
                 </div>
                 <div>
                     <input
@@ -102,21 +97,7 @@ const ContactForm = ({cartItems}) => {
                         placeholder="Address"
                         className=""
                     />
-                    {errors.address && (
-                        <p className="error">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10 13.125C9.8146 13.125 9.63335 13.18 9.47918 13.283C9.32501 13.386 9.20484 13.5324 9.13389 13.7037C9.06293 13.875 9.04436 14.0635 9.08054 14.2454C9.11671 14.4273 9.206 14.5943 9.33711 14.7254C9.46822 14.8565 9.63527 14.9458 9.81713 14.982C9.99898 15.0182 10.1875 14.9996 10.3588 14.9286C10.5301 14.8577 10.6765 14.7375 10.7795 14.5833C10.8825 14.4292 10.9375 14.2479 10.9375 14.0625C10.9375 13.8139 10.8388 13.5754 10.6629 13.3996C10.4871 13.2238 10.2487 13.125 10 13.125Z"
-                                    fill="#fecdd3"/>
-                                <path d="M10.625 5H9.37502V11.25H10.625V5Z" fill="#fecdd3"/>
-                                <path
-                                    d="M14.375 18.125H5.62502C5.51579 18.125 5.40846 18.0964 5.31373 18.042C5.21901 17.9876 5.14019 17.9093 5.08515 17.8149L0.710149 10.3149C0.654384 10.2193 0.625 10.1107 0.625 10C0.625 9.88933 0.654384 9.78065 0.710149 9.68506L5.08515 2.18506C5.14019 2.09071 5.21901 2.01243 5.31373 1.95802C5.40846 1.90362 5.51579 1.875 5.62502 1.875H14.375C14.4843 1.875 14.5916 1.90362 14.6863 1.95802C14.781 2.01243 14.8599 2.09071 14.9149 2.18506L19.2899 9.68506C19.3457 9.78065 19.375 9.88933 19.375 10C19.375 10.1107 19.3457 10.2193 19.2899 10.3149L14.9149 17.8149C14.8599 17.9093 14.781 17.9876 14.6863 18.042C14.5916 18.0964 14.4843 18.125 14.375 18.125ZM5.9839 16.875H14.0161L18.0265 10L14.0161 3.125H5.9839L1.97359 10L5.9839 16.875Z"
-                                    fill="#fecdd3"/>
-                            </svg>
-                            {errors.address}
-                        </p>
-                    )}
+                    {errors.address && <p className="error">{errors.address}</p>}
                 </div>
             </div>
             <div className="col col-2">
@@ -129,21 +110,7 @@ const ContactForm = ({cartItems}) => {
                         placeholder="Email"
                         className=""
                     />
-                    {errors.email && (
-                        <p className="error">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10 13.125C9.8146 13.125 9.63335 13.18 9.47918 13.283C9.32501 13.386 9.20484 13.5324 9.13389 13.7037C9.06293 13.875 9.04436 14.0635 9.08054 14.2454C9.11671 14.4273 9.206 14.5943 9.33711 14.7254C9.46822 14.8565 9.63527 14.9458 9.81713 14.982C9.99898 15.0182 10.1875 14.9996 10.3588 14.9286C10.5301 14.8577 10.6765 14.7375 10.7795 14.5833C10.8825 14.4292 10.9375 14.2479 10.9375 14.0625C10.9375 13.8139 10.8388 13.5754 10.6629 13.3996C10.4871 13.2238 10.2487 13.125 10 13.125Z"
-                                    fill="#fecdd3"/>
-                                <path d="M10.625 5H9.37502V11.25H10.625V5Z" fill="#fecdd3"/>
-                                <path
-                                    d="M14.375 18.125H5.62502C5.51579 18.125 5.40846 18.0964 5.31373 18.042C5.21901 17.9876 5.14019 17.9093 5.08515 17.8149L0.710149 10.3149C0.654384 10.2193 0.625 10.1107 0.625 10C0.625 9.88933 0.654384 9.78065 0.710149 9.68506L5.08515 2.18506C5.14019 2.09071 5.21901 2.01243 5.31373 1.95802C5.40846 1.90362 5.51579 1.875 5.62502 1.875H14.375C14.4843 1.875 14.5916 1.90362 14.6863 1.95802C14.781 2.01243 14.8599 2.09071 14.9149 2.18506L19.2899 9.68506C19.3457 9.78065 19.375 9.88933 19.375 10C19.375 10.1107 19.3457 10.2193 19.2899 10.3149L14.9149 17.8149C14.8599 17.9093 14.781 17.9876 14.6863 18.042C14.5916 18.0964 14.4843 18.125 14.375 18.125ZM5.9839 16.875H14.0161L18.0265 10L14.0161 3.125H5.9839L1.97359 10L5.9839 16.875Z"
-                                    fill="#fecdd3"/>
-                            </svg>
-                            {errors.email}
-                        </p>
-                    )}
+                    {errors.email && <p className="error">{errors.email}</p>}
                 </div>
                 <div>
                     <input
@@ -154,51 +121,30 @@ const ContactForm = ({cartItems}) => {
                         placeholder="Phone Number"
                         className=""
                     />
-                    {errors.phone && (
-                        <p className="error">
-                            <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                                 xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M10 13.125C9.8146 13.125 9.63335 13.18 9.47918 13.283C9.32501 13.386 9.20484 13.5324 9.13389 13.7037C9.06293 13.875 9.04436 14.0635 9.08054 14.2454C9.11671 14.4273 9.206 14.5943 9.33711 14.7254C9.46822 14.8565 9.63527 14.9458 9.81713 14.982C9.99898 15.0182 10.1875 14.9996 10.3588 14.9286C10.5301 14.8577 10.6765 14.7375 10.7795 14.5833C10.8825 14.4292 10.9375 14.2479 10.9375 14.0625C10.9375 13.8139 10.8388 13.5754 10.6629 13.3996C10.4871 13.2238 10.2487 13.125 10 13.125Z"
-                                    fill="#fecdd3"/>
-                                <path d="M10.625 5H9.37502V11.25H10.625V5Z" fill="#fecdd3"/>
-                                <path
-                                    d="M14.375 18.125H5.62502C5.51579 18.125 5.40846 18.0964 5.31373 18.042C5.21901 17.9876 5.14019 17.9093 5.08515 17.8149L0.710149 10.3149C0.654384 10.2193 0.625 10.1107 0.625 10C0.625 9.88933 0.654384 9.78065 0.710149 9.68506L5.08515 2.18506C5.14019 2.09071 5.21901 2.01243 5.31373 1.95802C5.40846 1.90362 5.51579 1.875 5.62502 1.875H14.375C14.4843 1.875 14.5916 1.90362 14.6863 1.95802C14.781 2.01243 14.8599 2.09071 14.9149 2.18506L19.2899 9.68506C19.3457 9.78065 19.375 9.88933 19.375 10C19.375 10.1107 19.3457 10.2193 19.2899 10.3149L14.9149 17.8149C14.8599 17.9093 14.781 17.9876 14.6863 18.042C14.5916 18.0964 14.4843 18.125 14.375 18.125ZM5.9839 16.875H14.0161L18.0265 10L14.0161 3.125H5.9839L1.97359 10L5.9839 16.875Z"
-                                    fill="#fecdd3"/>
-                            </svg>
-                            {errors.phone}
-                        </p>
-                    )}
+                    {errors.phone && <p className="error">{errors.phone}</p>}
                 </div>
             </div>
             <div className="textarea-wrapper">
-               <textarea
-                   placeholder="Message"
-                   name="message"
-                   value={formData.message}
-                   onChange={handleChange}
-                   rows="5"
-               ></textarea>
-                {errors.message && (
-                    <p className="error">
-                        <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
-                             xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                d="M10 13.125C9.8146 13.125 9.63335 13.18 9.47918 13.283C9.32501 13.386 9.20484 13.5324 9.13389 13.7037C9.06293 13.875 9.04436 14.0635 9.08054 14.2454C9.11671 14.4273 9.206 14.5943 9.33711 14.7254C9.46822 14.8565 9.63527 14.9458 9.81713 14.982C9.99898 15.0182 10.1875 14.9996 10.3588 14.9286C10.5301 14.8577 10.6765 14.7375 10.7795 14.5833C10.8825 14.4292 10.9375 14.2479 10.9375 14.0625C10.9375 13.8139 10.8388 13.5754 10.6629 13.3996C10.4871 13.2238 10.2487 13.125 10 13.125Z"
-                                fill="#fecdd3"/>
-                            <path d="M10.625 5H9.37502V11.25H10.625V5Z" fill="#fecdd3"/>
-                            <path
-                                d="M14.375 18.125H5.62502C5.51579 18.125 5.40846 18.0964 5.31373 18.042C5.21901 17.9876 5.14019 17.9093 5.08515 17.8149L0.710149 10.3149C0.654384 10.2193 0.625 10.1107 0.625 10C0.625 9.88933 0.654384 9.78065 0.710149 9.68506L5.08515 2.18506C5.14019 2.09071 5.21901 2.01243 5.31373 1.95802C5.40846 1.90362 5.51579 1.875 5.62502 1.875H14.375C14.4843 1.875 14.5916 1.90362 14.6863 1.95802C14.781 2.01243 14.8599 2.09071 14.9149 2.18506L19.2899 9.68506C19.3457 9.78065 19.375 9.88933 19.375 10C19.375 10.1107 19.3457 10.2193 19.2899 10.3149L14.9149 17.8149C14.8599 17.9093 14.781 17.9876 14.6863 18.042C14.5916 18.0964 14.4843 18.125 14.375 18.125ZM5.9839 16.875H14.0161L18.0265 10L14.0161 3.125H5.9839L1.97359 10L5.9839 16.875Z"
-                                fill="#fecdd3"/>
-                        </svg>
-                        {errors.message}
-                    </p>
-                )}
+                <textarea
+                    placeholder="Message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    rows="5"
+                ></textarea>
+                {errors.message && <p className="error">{errors.message}</p>}
             </div>
             <div className="full-width-container">
-                <button className="submit-btn" type="submit">Contact Me</button>
+                <button className="submit-btn" type="submit" disabled={isSubmitting}>
+                    {isSubmitting ? 'Sending...' : 'Contact Me'}
+                </button>
             </div>
 
+            {submissionStatus && (
+                <p className={`status-message ${submissionStatus}`}>
+                    {submissionStatus === 'success' ? 'Your message was sent successfully!' : 'There was an error sending your message.'}
+                </p>
+            )}
         </form>
     );
 };
