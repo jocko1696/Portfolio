@@ -7,7 +7,7 @@ const Services = () => {
             <div className="center-container">
                 <div className="heading">
                     <h2 className="heading-title">Services</h2>
-                    <p className="heading-description">Providing innovative software solutions to drive your business forward</p>
+                    <p className="heading-description">Innovative software solutions to drive your business forward</p>
                 </div>
                 <Cards />
             </div>
