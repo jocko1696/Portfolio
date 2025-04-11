@@ -1268,6 +1268,8 @@ textarea::-moz-placeholder { /* Firefox 19+ */
 @media (max-width: 1180px) {
   #home .mobile-view {
     display: block !important;
+    position: relative;
+    top: 81px;
   }
   #home .desktop-view {
     display: none !important;
@@ -1306,6 +1308,14 @@ textarea::-moz-placeholder { /* Firefox 19+ */
 @media (max-height: 800px) {
   .mobile-view, .desktop-view {
     bottom: -162px !important; /* Adjust for smaller laptop screens */
+  }
+}
+@media (max-width: 576px) {
+  .white-divider {
+    display: none;
+  }
+  #home .mobile-view {
+    top: 0;
   }
 }
 #about-me {

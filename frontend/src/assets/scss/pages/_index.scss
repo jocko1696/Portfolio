@@ -189,6 +189,8 @@ $gradient-end: #fda4af;
   #home{
     .mobile-view{
       display:block !important;
+      position: relative;
+      top: 81px;
     }
 
     .desktop-view{
@@ -238,5 +240,19 @@ $gradient-end: #fda4af;
 @media (max-height: 800px) {
   .mobile-view,.desktop-view {
     bottom: -162px !important; /* Adjust for smaller laptop screens */
+  }
+}
+
+@media (max-width: 576px) {
+  .white-divider{
+    display: none;
+  }
+  
+  #home{
+    .mobile-view{
+      top:0;
+    }
+
+
   }
 }
